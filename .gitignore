@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 .idea/
-mintty.exe.stackdump/
+.mintty.exe.stackdump/
