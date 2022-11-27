@@ -1,7 +1,9 @@
+package ru.netology.repository;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.repository.TicketRepository;
+
 import ru.netology.ticket.Ticket;
 
 public class TicketRepositoryTest {
