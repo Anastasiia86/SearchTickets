@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import ru.netology.repository.TicketRepository;
 import ru.netology.ticket.Ticket;
 
+import java.util.Comparator;
+
 public class TicketManagerTest {
-    TicketRepository repo = new TicketRepository();
-    TicketManager manager = new TicketManager(repo);
+    TicketRepository repository = new TicketRepository();
+    TicketManager manager = new TicketManager();
     private Ticket ticket1 = new Ticket(1, 1299, "SVO", "KZN", 95);
     private Ticket ticket2 = new Ticket(2, 2199, "VKO", "KZN", 95);
     private Ticket ticket3 = new Ticket(3, 3500, "DME", "KZN", 90);
@@ -59,6 +61,35 @@ public class TicketManagerTest {
     public void searchBy__() {
         Ticket[] expected = new Ticket[]{};
         Ticket[] actual = manager.searchBy("", "");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void shouldFindSorted() {
+        Ticket[] actual = manager.findFromToSorted("SVO", "KZN", new Comparator<Ticket>() {
+            @Override
+            public int compare(Ticket o1, Ticket o2) {
+                return 0;
+            }
+        });
+        Ticket[] expected = {
+                ticket1,
+                ticket4
+
+        };
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldFindNothing() {
+        Ticket[] actual = manager.findFromToSorted("VKO", "VKO", new Comparator<Ticket>() {
+            @Override
+            public int compare(Ticket o1, Ticket o2) {
+                return 0;
+            }
+        });
+        Ticket[] expected = {};
+
         Assertions.assertArrayEquals(expected, actual);
     }
 
