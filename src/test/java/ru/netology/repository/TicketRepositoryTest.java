@@ -4,7 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+import ru.netology.domain.NotFoundException;
 import ru.netology.ticket.Ticket;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class TicketRepositoryTest {
 
@@ -43,9 +49,35 @@ public class TicketRepositoryTest {
 
         Assertions.assertArrayEquals(expected, repositoryEmpty.findAll());
     }
+    @Test
+    public void shouldRemoveById() {
+        Ticket[] expected = new Ticket[]{
+                ticket1,
+                ticket2,
+                ticket3,
+                ticket6};
+        ticketRepository.removeById(4);
+        ticketRepository.removeById(5);
+
+        Assertions.assertArrayEquals(expected, ticketRepository.findAll());
+    }
+
+    @Test
+    public void shouldRemoveByIdException() {
+        assertThrows(NotFoundException.class, () -> {
+          ticketRepository.removeById(7);
+        });
+    }
+
+    @Test
+    public void shouldFindById() {
+        Assertions.assertEquals(ticket5, ticketRepository.findById(5));
+    }
+
+    @Test
+    public void shouldFindByIdNull() {
+        assertNull(ticketRepository.findById(10));
+    }
 
 
 }
-
-
-
